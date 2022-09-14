@@ -1,0 +1,72 @@
+{% extends "layout_unbranded.html" %} 
+{% block pageTitle %} 
+  Add new city
+{% endblock %} 
+ 
+{% block content %}
+
+{% if errormessage %} 
+<div class="govuk-error-message">{{ errormessage }}</div> 
+{% endif %}
+
+<h1> Enter a new city</h1>
+<form class="form" action="addcity" method="post">
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+    {{ govukInput({
+        label: {
+          text: "What is the city ID?",
+          classes: "govuk-label--m"
+        },
+        id: "id",
+        name: "id",
+        value: data["id"]
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "What is the city Name?",
+          classes: "govuk-label--m"
+        },
+        id: "name",
+        name: "name",
+        value: data["name"]
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "What country is the city located in?",
+          classes: "govuk-label--m"
+        },
+        id: "countrycode",
+        name: "countrycode",
+        value: data["countrycode"]
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "What district is the city located in?",
+          classes: "govuk-label--m"
+        },
+        id: "district",
+        name: "district",
+        value: data["district"]
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "What is the population of the city?",
+          classes: "govuk-label--m"
+        },
+        id: "population",
+        name: "population",
+        value: data["population"]
+      }) }}
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Submit new city
+      </button>
+
+</form>
+{% endblock %}
