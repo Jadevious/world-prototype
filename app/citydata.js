@@ -19,19 +19,13 @@ function wrapDB (dbconfig) {
     } 
 }
 
-exports.getCities = async () => { 
-    //return await getCitiesInCountry('GBR');
-    // Reached Step 3, haven't started it yet
-    let cities = []  
-      try {  
-        const cityResponse = await axios.get('https://countriesnow.space/api/v0.1/countries/population/cities')
-        for (let data of cityResponse.data.data) {
-          cities.push(data.city)
-        }
+getCitiesInCountry = async (countrycode) => { 
+    try {  
+        const cityResponse = await axios.post('https://countriesnow.space/api/v0.1/countries/cities', {"country": countrycode})
+        return cityResponse.data.data
       } catch (e) {
          return new Error('Could not get cities')
       }
-      return cities;
 }
 
 exports.addCity = async (newCity) => { 
@@ -39,9 +33,7 @@ exports.addCity = async (newCity) => {
     return results.insertId; 
 }
 
-getCitiesInCountry = async ( countrycode ) => { 
-    return await db.query( 
-        "SELECT id, name, countrycode, district, population" 
-        + " FROM city WHERE countrycode = ?", 
-                            [countrycode]) 
+
+exports.getCities = async () => { 
+    return await getCitiesInCountry('United Kingdom'); 
 }
